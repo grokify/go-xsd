@@ -6,9 +6,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/metaleap/go-util/str"
-
-	xsdt "github.com/metaleap/go-xsd/types"
+	ustr "github.com/grokify/go-util/str"
+	xsdt "github.com/grokify/go-xsd/types"
 )
 
 const (

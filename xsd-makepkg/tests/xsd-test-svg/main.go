@@ -3,10 +3,8 @@ package main
 import (
 	"encoding/xml"
 
-	"github.com/metaleap/go-xsd/xsd-makepkg/tests"
-
-	"github.com/metaleap/go-util/dev/go"
-
+	udevgo "github.com/grokify/go-util/dev/go"
+	"github.com/grokify/go-xsd/xsd-makepkg/tests"
 	svg "github.com/metaleap/go-xsd-pkg/www.w3.org/TR/2002/WD-SVG11-20020108/SVG.xsd_go"
 )
 

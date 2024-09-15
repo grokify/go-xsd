@@ -5,15 +5,14 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
 
-	"github.com/metaleap/go-util/fs"
-	"github.com/metaleap/go-util/net"
-	"github.com/metaleap/go-util/str"
+	ufs "github.com/grokify/go-util/fs"
+	unet "github.com/grokify/go-util/net"
+	ustr "github.com/grokify/go-util/str"
 )
 
 const (
@@ -250,7 +249,7 @@ func ClearLoadedSchemasCache() {
 func loadSchema(r io.Reader, loadUri, localPath string) (sd *Schema, err error) {
 	var data []byte
 	var rootAtts []xml.Attr
-	if data, err = ioutil.ReadAll(r); err == nil {
+	if data, err = io.ReadAll(r); err == nil {
 		var t xml.Token
 		sd = new(Schema)
 		for xd := xml.NewDecoder(bytes.NewReader(data)); err == nil; {

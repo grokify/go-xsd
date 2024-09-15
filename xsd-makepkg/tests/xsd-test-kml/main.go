@@ -3,9 +3,8 @@ package main
 import (
 	"encoding/xml"
 
-	"github.com/metaleap/go-xsd/xsd-makepkg/tests"
-
-	"github.com/metaleap/go-util/dev/go"
+	udevgo "github.com/grokify/go-util/dev/go"
+	"github.com/grokify/go-xsd/xsd-makepkg/tests"
 
 	kml "github.com/metaleap/go-xsd-pkg/schemas.opengis.net/kml/2.2.0/ogckml22.xsd_go"
 )

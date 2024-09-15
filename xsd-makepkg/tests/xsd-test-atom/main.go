@@ -3,9 +3,8 @@ package main
 import (
 	"encoding/xml"
 
-	"github.com/metaleap/go-xsd/xsd-makepkg/tests"
-
-	"github.com/metaleap/go-util/dev/go"
+	udevgo "github.com/grokify/go-util/dev/go"
+	"github.com/grokify/go-xsd/xsd-makepkg/tests"
 
 	atom "github.com/metaleap/go-xsd-pkg/kbcafe.com/rss/atom.xsd.xml_go"
 )

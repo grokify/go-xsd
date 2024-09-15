@@ -1,7 +1,7 @@
 package xsd
 
 import (
-	xsdt "github.com/metaleap/go-xsd/types"
+	xsdt "github.com/grokify/go-xsd/types"
 )
 
 type hasAttrAbstract struct {

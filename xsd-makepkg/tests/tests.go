@@ -7,9 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/metaleap/go-util/fs"
-
 	xmlx "github.com/go-forks/go-pkg-xmlx"
+	ufs "github.com/grokify/go-util/fs"
 )
 
 var (
@@ -94,8 +93,8 @@ func verifyNode(orig, faks *xmlx.Node) (errs []error) {
 	return
 }
 
-//	Attempts to xml.Unmarshal() all files in the "infiles" sub-directory of the specified directory path into the interface{} structure returned by the specified constructor.
-//	For each such input file, then attempts to xml.MarshalIndent() said structure back into a new output XML file with the same name, in the "outfiles" sub-directory of the specified directory path.
+// Attempts to xml.Unmarshal() all files in the "infiles" sub-directory of the specified directory path into the interface{} structure returned by the specified constructor.
+// For each such input file, then attempts to xml.MarshalIndent() said structure back into a new output XML file with the same name, in the "outfiles" sub-directory of the specified directory path.
 func TestViaRemarshal(dirPath string, makeEmptyDoc func() interface{}) {
 	var dirPathInFiles = filepath.Join(dirPath, "infiles")
 	var dirPathOutFiles = filepath.Join(dirPath, "outfiles")
