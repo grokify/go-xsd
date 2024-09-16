@@ -389,7 +389,7 @@ func (me *Element) makePkg(bag *PkgBag) {
 				typeName = bag.xsdStringTypeRef()
 			}
 			loadedSchemas := make(map[string]bool)
-			if typeName = bag.resolveQnameRef(typeName, "T", &impName); bag.Schema.RootSchema([]string{bag.Schema.loadUri}).globalComplexType(bag, typeName, loadedSchemas) != nil {
+			if typeName = bag.resolveQnameRef(typeName, "T", &impName); bag.Schema.RootSchema([]string{bag.Schema.loadURI}).globalComplexType(bag, typeName, loadedSchemas) != nil {
 				asterisk = "*"
 			}
 		}
@@ -416,7 +416,7 @@ func (me *Element) makePkg(bag *PkgBag) {
 				td.addField(me, ustr.Ifs(pref == "HasElems_", pluralize(safeName), safeName), ustr.Ifs(pref == "HasElems_", "[]"+asterisk+typeName, asterisk+typeName), ustr.Ifs(len(bag.Schema.TargetNamespace) > 0, bag.Schema.TargetNamespace.String()+" ", "")+me.Name.String(), me.Annotation)
 				if me.parent == bag.Schema {
 					loadedSchemas := make(map[string]bool)
-					for _, subEl = range bag.Schema.RootSchema([]string{bag.Schema.loadUri}).globalSubstitutionElems(me, loadedSchemas) {
+					for _, subEl = range bag.Schema.RootSchema([]string{bag.Schema.loadURI}).globalSubstitutionElems(me, loadedSchemas) {
 						td.addEmbed(subEl, idPrefix+pref+bag.safeName(subEl.Name.String()), subEl.Annotation)
 					}
 				}
@@ -528,7 +528,7 @@ func (me *Import) makePkg(bag *PkgBag) {
 		if pos, impPath = strings.Index(me.SchemaLocation.String(), protSep), me.SchemaLocation.String(); pos > 0 {
 			impPath = impPath[pos+len(protSep):]
 		} else {
-			impPath = path.Join(path.Dir(bag.Schema.loadUri), impPath)
+			impPath = path.Join(path.Dir(bag.Schema.loadURI), impPath)
 		}
 		impPath = path.Join(path.Dir(impPath), goPkgPrefix+path.Base(impPath)+goPkgSuffix)
 		bag.imports[impName] = path.Join(PkgGen.BasePath, impPath)

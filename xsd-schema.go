@@ -57,14 +57,14 @@ type Schema struct {
 	hasElemsRedefine
 	hasElemsSimpleType
 
-	loadLocalPath, loadUri string
+	loadLocalPath, loadURI string
 }
 
 func (me *Schema) allSchemas(loadedSchemas map[string]bool) (schemas []*Schema) {
 	schemas = append(schemas, me)
-	loadedSchemas[me.loadUri] = true
+	loadedSchemas[me.loadURI] = true
 	for _, ss := range me.XMLIncludedSchemas {
-		if v, ok := loadedSchemas[ss.loadUri]; ok && v {
+		if v, ok := loadedSchemas[ss.loadURI]; ok && v {
 			continue
 		}
 		schemas = append(schemas, ss.allSchemas(loadedSchemas)...)
@@ -73,7 +73,7 @@ func (me *Schema) allSchemas(loadedSchemas map[string]bool) (schemas []*Schema) 
 }
 
 func (me *Schema) collectGlobals(bag *PkgBag, loadedSchemas map[string]bool) {
-	loadedSchemas[me.loadUri] = true
+	loadedSchemas[me.loadURI] = true
 	bag.allAtts = append(bag.allAtts, me.Attributes...)
 
 	bag.allAttGroups = append(bag.allAttGroups, me.AttributeGroups...)
@@ -85,7 +85,7 @@ func (me *Schema) collectGlobals(bag *PkgBag, loadedSchemas map[string]bool) {
 	bag.allNotations = append(bag.allNotations, me.Notations...)
 
 	for _, ss := range me.XMLIncludedSchemas {
-		if v, ok := loadedSchemas[ss.loadUri]; ok && v {
+		if v, ok := loadedSchemas[ss.loadURI]; ok && v {
 			continue
 		}
 		ss.collectGlobals(bag, loadedSchemas)
@@ -99,9 +99,9 @@ func (me *Schema) globalComplexType(bag *PkgBag, name string, loadedSchemas map[
 			return
 		}
 	}
-	loadedSchemas[me.loadUri] = true
+	loadedSchemas[me.loadURI] = true
 	for _, ss := range me.XMLIncludedSchemas {
-		if v, ok := loadedSchemas[ss.loadUri]; ok && v {
+		if v, ok := loadedSchemas[ss.loadURI]; ok && v {
 			//fmt.Printf("Ignoring processed schema: %s\n", ss.loadUri)
 			continue
 		}
@@ -144,9 +144,9 @@ func (me *Schema) globalSubstitutionElems(el *Element, loadedSchemas map[string]
 			}
 		}
 	}
-	loadedSchemas[me.loadUri] = true
+	loadedSchemas[me.loadURI] = true
 	for _, inc := range me.XMLIncludedSchemas {
-		if v, ok := loadedSchemas[inc.loadUri]; ok && v {
+		if v, ok := loadedSchemas[inc.loadURI]; ok && v {
 			//fmt.Printf("Ignoring processed schema: %s\n", inc.loadUri)
 			continue
 		}
@@ -157,7 +157,7 @@ func (me *Schema) globalSubstitutionElems(el *Element, loadedSchemas map[string]
 
 func (me *Schema) MakeGoPkgSrcFile() (goOutFilePath string, err error) {
 	var goOutDirPath = filepath.Join(filepath.Dir(me.loadLocalPath), goPkgPrefix+filepath.Base(me.loadLocalPath)+goPkgSuffix)
-	goOutFilePath = filepath.Join(goOutDirPath, path.Base(me.loadUri)+".go")
+	goOutFilePath = filepath.Join(goOutDirPath, path.Base(me.loadURI)+".go")
 	var bag = newPkgBag(me)
 	loadedSchemas := make(map[string]bool)
 	for _, inc := range me.allSchemas(loadedSchemas) {
@@ -178,7 +178,7 @@ func (me *Schema) onLoad(rootAtts []xml.Attr, loadURI, localPath string) (err er
 	var tmpURL string
 	var sd *Schema
 	loadedSchemas[loadURI] = me
-	me.loadLocalPath, me.loadUri = localPath, loadURI
+	me.loadLocalPath, me.loadURI = localPath, loadURI
 	me.XMLNamespaces = map[string]string{}
 	for _, att := range rootAtts {
 		if att.Name.Space == "xmlns" {
@@ -226,12 +226,12 @@ func (me *Schema) onLoad(rootAtts []xml.Attr, loadURI, localPath string) (err er
 func (me *Schema) RootSchema(pathSchemas []string) *Schema {
 	if me.XSDParentSchema != nil {
 		for _, sch := range pathSchemas {
-			if me.XSDParentSchema.loadUri == sch {
-				fmt.Printf("schema loop detected %+v - > %s!\n", pathSchemas, me.XSDParentSchema.loadUri)
+			if me.XSDParentSchema.loadURI == sch {
+				fmt.Printf("schema loop detected %+v - > %s!\n", pathSchemas, me.XSDParentSchema.loadURI)
 				return me
 			}
 		}
-		pathSchemas = append(pathSchemas, me.loadUri)
+		pathSchemas = append(pathSchemas, me.loadURI)
 		return me.XSDParentSchema.RootSchema(pathSchemas)
 	}
 	return me
