@@ -74,21 +74,16 @@ func (me *Schema) allSchemas(loadedSchemas map[string]bool) (schemas []*Schema) 
 
 func (me *Schema) collectGlobals(bag *PkgBag, loadedSchemas map[string]bool) {
 	loadedSchemas[me.loadUri] = true
-	for _, att := range me.Attributes {
-		bag.allAtts = append(bag.allAtts, att)
-	}
-	for _, agr := range me.AttributeGroups {
-		bag.allAttGroups = append(bag.allAttGroups, agr)
-	}
-	for _, el := range me.Elements {
-		bag.allElems = append(bag.allElems, el)
-	}
-	for _, egr := range me.Groups {
-		bag.allElemGroups = append(bag.allElemGroups, egr)
-	}
-	for _, not := range me.Notations {
-		bag.allNotations = append(bag.allNotations, not)
-	}
+	bag.allAtts = append(bag.allAtts, me.Attributes...)
+
+	bag.allAttGroups = append(bag.allAttGroups, me.AttributeGroups...)
+
+	bag.allElems = append(bag.allElems, me.Elements...)
+
+	bag.allElemGroups = append(bag.allElemGroups, me.Groups...)
+
+	bag.allNotations = append(bag.allNotations, me.Notations...)
+
 	for _, ss := range me.XMLIncludedSchemas {
 		if v, ok := loadedSchemas[ss.loadUri]; ok && v {
 			continue
@@ -179,11 +174,11 @@ func (me *Schema) MakeGoPkgSrcFile() (goOutFilePath string, err error) {
 	return
 }
 
-func (me *Schema) onLoad(rootAtts []xml.Attr, loadUri, localPath string) (err error) {
-	var tmpUrl string
+func (me *Schema) onLoad(rootAtts []xml.Attr, loadURI, localPath string) (err error) {
+	var tmpURL string
 	var sd *Schema
-	loadedSchemas[loadUri] = me
-	me.loadLocalPath, me.loadUri = localPath, loadUri
+	loadedSchemas[loadURI] = me
+	me.loadLocalPath, me.loadUri = localPath, loadURI
 	me.XMLNamespaces = map[string]string{}
 	for _, att := range rootAtts {
 		if att.Name.Space == "xmlns" {
@@ -206,18 +201,18 @@ func (me *Schema) onLoad(rootAtts []xml.Attr, loadUri, localPath string) (err er
 	}
 	me.XMLIncludedSchemas = []*Schema{}
 	for _, inc := range me.Includes {
-		if tmpUrl = inc.SchemaLocation.String(); strings.Index(tmpUrl, protSep) < 0 {
-			tmpUrl = path.Join(path.Dir(loadUri), tmpUrl)
+		if tmpURL = inc.SchemaLocation.String(); !strings.Contains(tmpURL, protSep) {
+			tmpURL = path.Join(path.Dir(loadURI), tmpURL)
 		}
 		var ok bool
-		var toLoadUri string
-		if pos := strings.Index(tmpUrl, protSep); pos >= 0 {
-			toLoadUri = tmpUrl[pos+len(protSep):]
+		var toLoadURI string
+		if pos := strings.Index(tmpURL, protSep); pos >= 0 {
+			toLoadURI = tmpURL[pos+len(protSep):]
 		} else {
-			toLoadUri = tmpUrl
+			toLoadURI = tmpURL
 		}
-		if sd, ok = loadedSchemas[toLoadUri]; !ok {
-			if sd, err = LoadSchema(tmpUrl, len(localPath) > 0); err != nil {
+		if sd, ok = loadedSchemas[toLoadURI]; !ok {
+			if sd, err = LoadSchema(tmpURL, len(localPath) > 0); err != nil {
 				return
 			}
 		}
@@ -270,11 +265,11 @@ func loadSchema(r io.Reader, loadUri, localPath string) (sd *Schema, err error) 
 	return
 }
 
-func loadSchemaFile(filename string, loadUri string) (sd *Schema, err error) {
+func loadSchemaFile(filename string, loadURI string) (sd *Schema, err error) {
 	var file *os.File
 	if file, err = os.Open(filename); err == nil {
 		defer file.Close()
-		sd, err = loadSchema(file, loadUri, filename)
+		sd, err = loadSchema(file, loadURI, filename)
 	}
 	return
 }

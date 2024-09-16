@@ -55,14 +55,14 @@ func verifyNode(orig, faks *xmlx.Node) (errs []error) {
 	cleanNodes(orig, faks)
 	for _, a := range orig.Attributes {
 		if tmp = attVal(faks, a); tmp != a.Value {
-			errs = append(errs, fmt.Errorf("Attribute '%s:%s' of <%s> element: different values (orig='%s' faks='%s')", a.Name.Space, a.Name.Local, orig.Name.Local, a.Value, tmp))
+			errs = append(errs, fmt.Errorf("attribute '%s:%s' of (%s) element: different values (orig='%s' faks='%s')", a.Name.Space, a.Name.Local, orig.Name.Local, a.Value, tmp))
 		}
 	}
 	if len(orig.Children) > len(faks.Children) {
-		errs = append(errs, fmt.Errorf("Orig <%s> element has %v children, but faks has %v.", orig.Name.Local, len(orig.Children), len(faks.Children)))
+		errs = append(errs, fmt.Errorf("orig (%s) element has %v children, but faks has (%v)", orig.Name.Local, len(orig.Children), len(faks.Children)))
 	}
 	if orig.Value != faks.Value {
-		errs = append(errs, fmt.Errorf("Orig <%s> element value differs from faks value.", orig.Name.Local))
+		errs = append(errs, fmt.Errorf("orig (%s) element value differs from faks value", orig.Name.Local))
 	}
 	namedNodes := map[string]*both{}
 	for _, cn = range orig.Children {
