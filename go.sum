@@ -2,8 +2,8 @@ github.com/fsnotify/fsnotify v1.7.0 h1:8JEhPFa5W2WU7YfeZzPNqzMP6Lwt7L2715Ggo0nos
 github.com/fsnotify/fsnotify v1.7.0/go.mod h1:40Bi/Hjc2AVfZrqy+aj+yEI+/bRxZnMJyTJwOpGvigM=
 github.com/go-forks/go-pkg-xmlx v0.0.0-20151201012946-76f54ee73233 h1:NzlXbfxsX5iZ2HyVbVVoxagVdMOaPCBnq+yyt30kRqY=
 github.com/go-forks/go-pkg-xmlx v0.0.0-20151201012946-76f54ee73233/go.mod h1:jYltBqPcl3/mN7oFManT61STmLIyCCQbIIH15Di/218=
-github.com/grokify/go-util v0.1.0 h1:YpxUk7DNOOKwXejuD0P2A8b9QKtoeAp9t+YwUjJ9Tpo=
-github.com/grokify/go-util v0.1.0/go.mod h1:zxIlpS0dXUbYgt6quOqrtmoCpKckjtRzrVnSUNnWuS8=
+github.com/grokify/go-util v0.1.1 h1:o796twJN/S/IbF79BXf3eYLCCf7SnMbkG3bgcIrl+pg=
+github.com/grokify/go-util v0.1.1/go.mod h1:o0Civ3O1EuvkYCAtT6z4JQTnmGReUha/Ig1mrgh4DvQ=
 github.com/metaleap/go-xsd v0.0.0-20180330193350-61f7638f502f h1:eeJGcYszuvOpmuJxeq57LaOO8mJurfjpOHJJMfQSD0s=
 github.com/metaleap/go-xsd v0.0.0-20180330193350-61f7638f502f/go.mod h1:WK3zEKtwVd/v+NM3lh1ZE6MdDfHsdOFFOD5Ezi4Hutg=
 github.com/metaleap/go-xsd-pkg v0.0.0-20170406225954-08667a7aef37 h1:+rgBDdkgo7NgLJPxtYxe6YKrAWgEu9xUrNuzTG3XA4Y=

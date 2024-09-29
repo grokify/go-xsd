@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/go-forks/go-pkg-xmlx v0.0.0-20151201012946-76f54ee73233
-	github.com/grokify/go-util v0.1.0
+	github.com/grokify/go-util v0.1.1
 	github.com/metaleap/go-xsd-pkg v0.0.0-20170406225954-08667a7aef37
 )
 
